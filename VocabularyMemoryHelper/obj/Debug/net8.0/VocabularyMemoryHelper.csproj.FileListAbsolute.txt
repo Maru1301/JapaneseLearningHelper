@@ -1,0 +1,14 @@
+C:\Users\maru_lin\source\repos\VocabularyMemoryHelper\VocabularyMemoryHelper\bin\Debug\net8.0\VocabularyMemoryHelper.exe
+C:\Users\maru_lin\source\repos\VocabularyMemoryHelper\VocabularyMemoryHelper\bin\Debug\net8.0\VocabularyMemoryHelper.deps.json
+C:\Users\maru_lin\source\repos\VocabularyMemoryHelper\VocabularyMemoryHelper\bin\Debug\net8.0\VocabularyMemoryHelper.runtimeconfig.json
+C:\Users\maru_lin\source\repos\VocabularyMemoryHelper\VocabularyMemoryHelper\bin\Debug\net8.0\VocabularyMemoryHelper.dll
+C:\Users\maru_lin\source\repos\VocabularyMemoryHelper\VocabularyMemoryHelper\bin\Debug\net8.0\VocabularyMemoryHelper.pdb
+C:\Users\maru_lin\source\repos\VocabularyMemoryHelper\VocabularyMemoryHelper\obj\Debug\net8.0\VocabularyMemoryHelper.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\maru_lin\source\repos\VocabularyMemoryHelper\VocabularyMemoryHelper\obj\Debug\net8.0\VocabularyMemoryHelper.AssemblyInfoInputs.cache
+C:\Users\maru_lin\source\repos\VocabularyMemoryHelper\VocabularyMemoryHelper\obj\Debug\net8.0\VocabularyMemoryHelper.AssemblyInfo.cs
+C:\Users\maru_lin\source\repos\VocabularyMemoryHelper\VocabularyMemoryHelper\obj\Debug\net8.0\VocabularyMemoryHelper.csproj.CoreCompileInputs.cache
+C:\Users\maru_lin\source\repos\VocabularyMemoryHelper\VocabularyMemoryHelper\obj\Debug\net8.0\VocabularyMemoryHelper.dll
+C:\Users\maru_lin\source\repos\VocabularyMemoryHelper\VocabularyMemoryHelper\obj\Debug\net8.0\refint\VocabularyMemoryHelper.dll
+C:\Users\maru_lin\source\repos\VocabularyMemoryHelper\VocabularyMemoryHelper\obj\Debug\net8.0\VocabularyMemoryHelper.pdb
+C:\Users\maru_lin\source\repos\VocabularyMemoryHelper\VocabularyMemoryHelper\obj\Debug\net8.0\VocabularyMemoryHelper.genruntimeconfig.cache
+C:\Users\maru_lin\source\repos\VocabularyMemoryHelper\VocabularyMemoryHelper\obj\Debug\net8.0\ref\VocabularyMemoryHelper.dll
