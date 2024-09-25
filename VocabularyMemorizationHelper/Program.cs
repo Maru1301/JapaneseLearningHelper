@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
@@ -22,15 +23,23 @@ namespace VocabularyMemoryHelper
             }
 
             Console.WriteLine($"總數:{chineseJapanesePairs.Count}");
-            foreach(var c in chineseJapanesePairs)
+            Dictionary<string, string> wrong = [];
+            foreach (var c in chineseJapanesePairs)
             {
-                Console.WriteLine(c.Key.Trim());
+                Console.WriteLine(c.Key);
                 Console.Write("答");
                 var ans = Console.ReadLine();
-                if(ans != c.Value.Trim())
+                if(ans != c.Value)
                 {
                     Console.WriteLine("錯誤");
+                    wrong.Add(c.Key, c.Value);
                 }
+            }
+
+            Console.WriteLine("錯誤清單");
+            foreach(var c in wrong)
+            {
+                Console.WriteLine($"{c.Key} : {c.Value}");
             }
         }
     }
@@ -93,7 +102,7 @@ namespace VocabularyMemoryHelper
                 }
             }
 
-            return (chinese, string.IsNullOrEmpty(parenthesesJapanese) == false ? parenthesesJapanese : japanese);
+            return (chinese.Trim(), string.IsNullOrEmpty(parenthesesJapanese) == false ? parenthesesJapanese.Trim() : japanese.Trim());
         }
     }
 }
