@@ -41,6 +41,8 @@ namespace VocabularyMemoryHelper
             {
                 Console.WriteLine($"{c.Key} : {c.Value}");
             }
+
+            Console.Read();
         }
     }
 
