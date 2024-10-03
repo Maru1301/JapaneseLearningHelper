@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
+﻿using System.Text;
 
 namespace VocabularyMemoryHelper
 {
@@ -9,102 +6,158 @@ namespace VocabularyMemoryHelper
     {
         static void Main(string[] args)
         {
-            Console.InputEncoding = Encoding.Unicode;
-            Console.OutputEncoding = Encoding.Unicode;
-            string context;
-            Dictionary<string, string> chineseJapanesePairs = [];
-            while((context = Console.ReadLine()!) != "done")
+            try
             {
-                (var chinese, var japanese ) = context.FindChineseJapanesePair();
-                if(string.IsNullOrEmpty(chinese) == false)
+                Console.InputEncoding = Encoding.Unicode;
+                Console.OutputEncoding = Encoding.Unicode;
+                string context;
+                Dictionary<List<string>, string> chineseJapanesePairs = [];
+                while ((context = Console.ReadLine()!) != "done")
                 {
-                    chineseJapanesePairs.Add(chinese, japanese);
+                    var res = context.FindChineseJapanesePair();
+                    if (string.IsNullOrEmpty(res.japanese) == false)
+                    {
+                        chineseJapanesePairs.Add(res.chinese, res.japanese);
+                    }
                 }
-            }
 
-            Console.WriteLine($"總數:{chineseJapanesePairs.Count}");
-            Dictionary<string, string> wrong = [];
-            foreach (var c in chineseJapanesePairs)
-            {
-                Console.WriteLine(c.Key);
-                Console.Write("答");
-                var ans = Console.ReadLine();
-                if(ans != c.Value)
+                var pairList = chineseJapanesePairs.ToList();
+                pairList = pairList.Randomize();
+
+                int count = pairList.Count;
+                Console.WriteLine($"總數:{count}");
+                List<KeyValuePair<List<string>, string>> wrong = [];
+                int changeQuestionPoint = count % 2 == 1 ? count / 2 + 1 : count;
+                
+                Console.WriteLine("中翻日");
+                for (int i = 0; i < changeQuestionPoint; i++)
                 {
-                    Console.WriteLine("錯誤");
-                    wrong.Add(c.Key, c.Value);
+                    var c = pairList[i];
+                    Console.WriteLine($"{i+1}. {string.Join(',', c.Key)}");
+                    Console.Write("答");
+                    var ans = Console.ReadLine();
+                    if (ans != c.Value)
+                    {
+                        Console.WriteLine("錯誤");
+                        wrong.Add(new(c.Key, c.Value));
+                    }
                 }
-            }
 
-            Console.WriteLine("錯誤清單");
-            foreach(var c in wrong)
+                Console.WriteLine("日翻中");
+                for (int i = changeQuestionPoint; i < count; i++)
+                {
+                    var c = pairList[i];
+                    Console.WriteLine($"{i + 1}. {c.Value}");
+                    Console.Write("答");
+                    var ans = Console.ReadLine();
+                    var chiAns = c.Key;
+
+                    if (!chiAns.Contains(ans!))
+                    {
+                        Console.WriteLine("錯誤");
+                        wrong.Add(new(c.Key, c.Value));
+                    }
+                }
+
+                if (wrong.Any())
+                {
+                    Console.WriteLine("錯誤清單");
+                    foreach (var c in wrong)
+                    {
+                        Console.WriteLine($"{c.Key} : {c.Value}");
+                    }
+                }
+
+                Console.Read();
+            }
+            catch (Exception ex)
             {
-                Console.WriteLine($"{c.Key} : {c.Value}");
+                Console.WriteLine(ex.Message);
+                Console.Read();
             }
-
-            Console.Read();
         }
     }
 
     public static class StrExt
     {
-        public static (string, string) FindChineseJapanesePair(this string context)
+        public static (List<string> chinese, string japanese) FindChineseJapanesePair(this string context)
         {
-            if (context[0] == ' ' || context[0] == '\t') return (string.Empty, string.Empty);
-            string chinese = string.Empty;
+            if (string.IsNullOrEmpty(context)) return ([], string.Empty);
+            if (context[0] == ' ' || context[0] == '\t') return ([], string.Empty);
+
+            int dotIndex = context.IndexOf('.');
+            int parenthesisIndex = context.IndexOf('：');
+            var japaneseStr = context[(dotIndex+1)..parenthesisIndex];
+            var chineseStr = context[(parenthesisIndex + 1)..];
+
+            bool isParen = false;
             string japanese = string.Empty;
             string parenthesesJapanese = string.Empty;
-            bool isChi = false;
-            bool isJa = false;
-            bool isParen = false;
-            foreach (var c in context)
+            foreach (var c in japaneseStr)
             {
-                if (c == '：')
+                if (c == '(')
                 {
-                    isChi = true;
-                    isJa = false;
-                    continue;
+                    isParen = true;
                 }
-                if (isParen)
+                else if (c == ')')
                 {
-                    if(c == ')')
-                    {
-                        isParen = false;
-                    }
-                    else
-                    {
-                        parenthesesJapanese += c;
-                    }
+                    break;
                 }
-                else if (isJa)
+                else if (isParen)
                 {
-                    if (c == '(')
-                    {
-                        isParen = true;
-                    }
-                    else
-                    {
-                        japanese += c;
-                    }
+                    parenthesesJapanese += c;
                 }
-                else if (isChi)
+                else
                 {
-                    if(c == '\n' || c == '(')
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        chinese += c;
-                    }
-                }
-                else if(c == '.')
-                {
-                    isJa = true;
+                    japanese += c;
                 }
             }
 
-            return (chinese.Trim(), string.IsNullOrEmpty(parenthesesJapanese) == false ? parenthesesJapanese.Trim() : japanese.Trim());
+            List<string> chineses = [];
+            string chinese = string.Empty;
+            foreach (var c in chineseStr)
+            {
+                if (c == '(')
+                {
+                    chineses.Add(chinese.Trim());
+                    break;
+                }
+                else if (c == '，')
+                {
+                    chineses.Add(chinese.Trim());
+                    chinese = string.Empty;
+                }
+                else
+                {
+                    chinese += c;
+                }
+            }
+
+            return (chineses, string.IsNullOrEmpty(parenthesesJapanese) == false ? parenthesesJapanese.Trim() : japanese.Trim());
+        }
+    }
+
+    public static class ListExt
+    {
+        public static List<T> Randomize<T>(this List<T> list)
+        {
+            int count = list.Count;
+            List<T> newList = new();
+            bool[] indexes = new bool[count];
+            Random random = new();
+            int tempCount = 0;
+            while(tempCount != count)
+            {
+                int tempRandomVal = random.Next(0, count);
+                if (indexes[tempRandomVal] == false)
+                {
+                    newList.Add(list[tempRandomVal]);
+                    indexes[tempRandomVal] = true;
+                    tempCount++;
+                }
+            }
+
+            return newList;
         }
     }
 }
