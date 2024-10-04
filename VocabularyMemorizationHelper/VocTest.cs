@@ -4,15 +4,22 @@ namespace VocabularyMemorizationHelper;
 
 public class VocTest
 {
-    public List<KeyValuePair<List<string>, string>> Start(List<KeyValuePair<List<string>, string>> input = null)
+    public List<KeyValuePair<List<string>, string>> Start()
     {
+        return Start([]);
+    }
+
+    public List<KeyValuePair<List<string>, string>> Start(List<KeyValuePair<List<string>, string>> input)
+    {
+        Console.CursorVisible = true;
+        Console.Clear();
         try
         {
             Console.InputEncoding = Encoding.Unicode;
             Console.OutputEncoding = Encoding.Unicode;
 
             List<KeyValuePair<List<string>, string>> pairList;
-            if (input == null)
+            if (input.Count == 0)
             {
                 var chineseJapanesePairs = ReadInput();
                 pairList = [.. chineseJapanesePairs];
