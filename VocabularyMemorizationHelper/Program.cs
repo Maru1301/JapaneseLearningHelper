@@ -4,7 +4,7 @@ namespace VocabularyMemorizationHelper
 {
     internal class Program
     {
-        public static async Task Main(string[] args)
+        public static void Main(string[] args)
         {
             Console.CursorVisible = false;
 
@@ -36,7 +36,6 @@ namespace VocabularyMemorizationHelper
         private static Menu InitializeMenu()
         {
             var test = new VocTest();
-            var del = delegate () { return test.Start(); };
             return new Menu()
             {
                 Name = "MainMenu",
@@ -45,11 +44,11 @@ namespace VocabularyMemorizationHelper
                     new FunctionOption()
                 {
                     Name = "VocTest",
-                    Func = del
+                    Func = () => test.Start()
                 },
                 new FunctionOption(){
                     Name = "Exit",
-                    Func = new Action(()=> Environment.Exit(0))
+                    Func = ()=> Environment.Exit(0)
                 }
                 ]
             };
