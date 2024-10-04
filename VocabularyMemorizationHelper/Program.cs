@@ -1,13 +1,107 @@
-﻿namespace VocabularyMemorizationHelper
+﻿using Menu_Practice.Model;
+
+namespace VocabularyMemorizationHelper
 {
     internal class Program
     {
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
+        {
+            Console.CursorVisible = false;
+
+            try
+            {
+                var menu = InitializeMenu();
+
+                int optionPointer = 0;
+
+                while (true)
+                {
+                    DisplayMenu(menu, optionPointer);
+                    var key = Console.ReadKey().Key;
+
+                    optionPointer = HandleInput(key, optionPointer, menu.Options.Count);
+
+                    if (key == ConsoleKey.Enter && menu.Options[optionPointer] is FunctionOption funcOption)
+                    {
+                        ExecuteOption(funcOption);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+
+        private static Menu InitializeMenu()
         {
             var test = new VocTest();
+            var del = delegate () { return test.Start(); };
+            return new Menu()
+            {
+                Name = "MainMenu",
+                Options =
+                [
+                    new FunctionOption()
+                {
+                    Name = "VocTest",
+                    Func = del
+                },
+                new FunctionOption(){
+                    Name = "Exit",
+                    Func = new Action(()=> Environment.Exit(0))
+                }
+                ]
+            };
+        }
 
-            var res = test.Start();
-            res = test.Start(res);
+        private static void DisplayMenu(Menu menu, int optionPointer)
+        {
+            Console.SetCursorPosition(0, 0);
+            Console.WriteLine(menu.Name);
+
+            for (int i = 0; i < menu.Options.Count; i++)
+            {
+                if (i == optionPointer)
+                {
+                    Console.WriteLine($"=> {menu.Options[i].Name}");
+                }
+                else
+                {
+                    Console.WriteLine($"   {menu.Options[i].Name}");
+                }
+            }
+        }
+
+        private static int HandleInput(ConsoleKey key, int optionPointer, int optionsCount)
+        {
+            switch (key)
+            {
+                case ConsoleKey.UpArrow:
+                case ConsoleKey.W:
+                    if (optionPointer > 0)
+                    {
+                        optionPointer--;
+                    }
+                    break;
+
+                case ConsoleKey.DownArrow:
+                case ConsoleKey.S:
+                    if (optionPointer < optionsCount - 1)
+                    {
+                        optionPointer++;
+                    }
+                    break;
+            }
+
+            return optionPointer;
+        }
+
+        private static void ExecuteOption(FunctionOption option)
+        {
+            option.Func.DynamicInvoke(null);
+            Console.CursorVisible = false;
+            Console.Clear();
         }
     }
 }
