@@ -121,7 +121,7 @@ public class VocTest
         Dictionary<List<string>, string> chineseJapanesePairs = [];
         while ((context = Console.ReadLine()!) != "done")
         {
-            var res = context.FindChineseJapanesePair();
+            var res = FindChineseJapanesePair(context);
             if (string.IsNullOrEmpty(res.japanese) == false)
             {
                 chineseJapanesePairs.Add(res.chinese, res.japanese);
@@ -130,11 +130,8 @@ public class VocTest
 
         return chineseJapanesePairs;
     }
-}
 
-public static class StrExt
-{
-    public static (List<string> chinese, string japanese) FindChineseJapanesePair(this string context)
+    private static (List<string> chinese, string japanese) FindChineseJapanesePair(string context)
     {
         if (string.IsNullOrEmpty(context)) return ([], string.Empty);
         if (context[0] == ' ' || context[0] == '\t') return ([], string.Empty);
@@ -144,8 +141,17 @@ public static class StrExt
         var japaneseStr = context[(dotIndex + 1)..parenthesisIndex];
         var chineseStr = context[(parenthesisIndex + 1)..];
 
+        string japanese = GetJapanese(japaneseStr);
+
+        List<string> chineses = GetChinese(chineseStr);
+
+        return (chineses, japanese);
+    }
+
+    private static string GetJapanese(string japaneseStr)
+    {
         bool isParen = false;
-        string japanese = string.Empty;
+        var japanese = string.Empty;
         string parenthesesJapanese = string.Empty;
         foreach (var c in japaneseStr)
         {
@@ -167,11 +173,16 @@ public static class StrExt
             }
         }
 
+        return string.IsNullOrEmpty(parenthesesJapanese) == false ? parenthesesJapanese.Trim() : japanese.Trim();
+    }
+
+    private static List<string> GetChinese(string chineseStr)
+    {
         List<string> chineses = [];
         string chinese = string.Empty;
         foreach (var c in chineseStr)
         {
-            if (c == '(')
+            if (c == '(' || c == '\n')
             {
                 chineses.Add(chinese.Trim());
                 break;
@@ -187,7 +198,7 @@ public static class StrExt
             }
         }
 
-        return (chineses, string.IsNullOrEmpty(parenthesesJapanese) == false ? parenthesesJapanese.Trim() : japanese.Trim());
+        return chineses;
     }
 }
 
