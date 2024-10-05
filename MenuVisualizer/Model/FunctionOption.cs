@@ -1,6 +1,6 @@
-﻿using Menu_Practice.Model.Interface;
+﻿using JapaneseLearningHelper.Model.Interface;
 
-namespace Menu_Practice.Model;
+namespace JapaneseLearningHelper.Model;
 
 public class FunctionOption : IOption
 {

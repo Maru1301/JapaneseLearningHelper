@@ -1,17 +1,21 @@
-﻿using Menu_Practice.Model;
+﻿using JapaneseLearningHelper.Model;
 
-namespace VocabularyMemorizationHelper
+namespace MenuVisualizer
 {
-    internal class Program
+    public class ConsoleMenuManager
     {
-        public static void Main(string[] args)
+        private Menu menu = new();
+        public void Construct(Menu menu)
+        {
+            this.menu = menu;
+        }
+
+        public void Show()
         {
             Console.CursorVisible = false;
 
             try
             {
-                var menu = InitializeMenu();
-
                 int optionPointer = 0;
 
                 while (true)
@@ -31,27 +35,6 @@ namespace VocabularyMemorizationHelper
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
-        }
-
-        private static Menu InitializeMenu()
-        {
-            var test = new VocTest();
-            return new Menu()
-            {
-                Name = "MainMenu",
-                Options =
-                [
-                    new FunctionOption()
-                {
-                    Name = "VocTest",
-                    Func = () => test.Start()
-                },
-                new FunctionOption(){
-                    Name = "Exit",
-                    Func = ()=> Environment.Exit(0)
-                }
-                ]
-            };
         }
 
         private static void DisplayMenu(Menu menu, int optionPointer)

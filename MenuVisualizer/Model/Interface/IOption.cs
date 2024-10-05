@@ -1,4 +1,4 @@
-﻿namespace Menu_Practice.Model.Interface;
+﻿namespace JapaneseLearningHelper.Model.Interface;
 
 public interface IOption
 {
