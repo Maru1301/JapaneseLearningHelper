@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VocabularyMemorizationHelper", "VocabularyMemorizationHelper\VocabularyMemorizationHelper.csproj", "{63CD2041-E053-4946-BCAC-419087E3126D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VocabularyMemorizationHelper", "VocabularyMemorizationHelper\VocabularyMemorizationHelper.csproj", "{63CD2041-E053-4946-BCAC-419087E3126D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JapaneseLearningHelper", "JapaneseLearningHelper\JapaneseLearningHelper.csproj", "{28BE6B39-4205-4434-9370-C3B410096DB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MenuVisualizer", "MenuVisualizer\MenuVisualizer.csproj", "{C71B2060-3F37-4AE1-9CD9-10A8EED62406}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{63CD2041-E053-4946-BCAC-419087E3126D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63CD2041-E053-4946-BCAC-419087E3126D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63CD2041-E053-4946-BCAC-419087E3126D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28BE6B39-4205-4434-9370-C3B410096DB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28BE6B39-4205-4434-9370-C3B410096DB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28BE6B39-4205-4434-9370-C3B410096DB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28BE6B39-4205-4434-9370-C3B410096DB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C71B2060-3F37-4AE1-9CD9-10A8EED62406}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C71B2060-3F37-4AE1-9CD9-10A8EED62406}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C71B2060-3F37-4AE1-9CD9-10A8EED62406}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C71B2060-3F37-4AE1-9CD9-10A8EED62406}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
