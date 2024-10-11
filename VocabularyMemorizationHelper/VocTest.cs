@@ -5,12 +5,7 @@ namespace VocabularyMemorizationHelper;
 
 public class VocTest
 {
-    public List<KeyValuePair<List<string>, JapaneseSet>> Start()
-    {
-        return Start([]);
-    }
-
-    public List<KeyValuePair<List<string>, JapaneseSet>> Start(List<KeyValuePair<List<string>, JapaneseSet>> input)
+    public List<KeyValuePair<List<string>, JapaneseSet>> Start(List<KeyValuePair<List<string>, JapaneseSet>>? input)
     {
         Console.CursorVisible = true;
         Console.Clear();
@@ -20,7 +15,7 @@ public class VocTest
             Console.OutputEncoding = Encoding.Unicode;
 
             List<KeyValuePair<List<string>, JapaneseSet>> pairList;
-            if (input.Count == 0)
+            if (input is null || input.Count == 0)
             {
                 var chineseJapanesePairs = ReadInput();
                 pairList = [.. chineseJapanesePairs];
@@ -58,7 +53,7 @@ public class VocTest
         }
     }
 
-    private void ShowResult(List<KeyValuePair<List<string>, JapaneseSet>> wrong)
+    private static void ShowResult(List<KeyValuePair<List<string>, JapaneseSet>> wrong)
     {
         if (wrong.Count != 0)
         {
@@ -74,7 +69,7 @@ public class VocTest
         }
     }
 
-    private List<KeyValuePair<List<string>, JapaneseSet>> JapantoChi(List<KeyValuePair<List<string>, JapaneseSet>> pairList, int changeQuestionPoint)
+    private static List<KeyValuePair<List<string>, JapaneseSet>> JapantoChi(List<KeyValuePair<List<string>, JapaneseSet>> pairList, int changeQuestionPoint)
     {
         List<KeyValuePair<List<string>, JapaneseSet>> wrong = [];
         Console.WriteLine("日翻中");
@@ -96,7 +91,7 @@ public class VocTest
         return wrong;
     }
 
-    private List<KeyValuePair<List<string>, JapaneseSet>> ChitoJapan(List<KeyValuePair<List<string>, JapaneseSet>> pairList, int changeQuestionPoint)
+    private static List<KeyValuePair<List<string>, JapaneseSet>> ChitoJapan(List<KeyValuePair<List<string>, JapaneseSet>> pairList, int changeQuestionPoint)
     {
         List<KeyValuePair<List<string>, JapaneseSet>> wrong = [];
         Console.WriteLine("中翻日");
@@ -116,7 +111,7 @@ public class VocTest
         return wrong;
     }
 
-    private Dictionary<List<string>, JapaneseSet> ReadInput()
+    private static Dictionary<List<string>, JapaneseSet> ReadInput()
     {
         string context;
         Dictionary<List<string>, JapaneseSet> chineseJapanesePairs = [];
