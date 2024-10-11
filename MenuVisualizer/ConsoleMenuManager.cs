@@ -17,17 +17,33 @@ namespace MenuVisualizer
             try
             {
                 int optionPointer = 0;
-
-                while (true)
+                object? result = null;
+                bool isExit = false;
+                while (!isExit)
                 {
                     DisplayMenu(menu, optionPointer);
                     var key = Console.ReadKey().Key;
 
                     optionPointer = HandleInput(key, optionPointer, menu.Options.Count);
 
-                    if (key == ConsoleKey.Enter && menu.Options[optionPointer] is FunctionOption funcOption)
+                    if (key == ConsoleKey.Enter)
                     {
-                        ExecuteOption(funcOption);
+                        if(menu.Options[optionPointer] is FunctionOption funcOption)
+                        {
+                            result = ExecuteOption(funcOption, result);
+                            menu = funcOption.AfterFuncSubMenu ?? menu;
+                        }
+                        else if (menu.Options[optionPointer] is SubMenuOption subMenuOption)
+                        {
+                            menu = subMenuOption.SubMenu!;
+                        }
+
+                        optionPointer = 0;
+                    }
+
+                    if(result is OptionDefault && result != null)
+                    {
+                        isExit = (OptionDefault)result == OptionDefault.Exit;
                     }
                 }
             }
@@ -79,11 +95,13 @@ namespace MenuVisualizer
             return optionPointer;
         }
 
-        private static void ExecuteOption(FunctionOption option)
+        private static object? ExecuteOption(FunctionOption option, object? input)
         {
-            option.Func.DynamicInvoke(null);
+            var result = option.Func.DynamicInvoke(input);
             Console.CursorVisible = false;
             Console.Clear();
+
+            return result;
         }
     }
 }
