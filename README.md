@@ -4,6 +4,7 @@
 JapaneseLearningHelper is a project designed to facilitate Japanese vocabulary learning through an interactive command-line interface (CLI). It consists of two core libraries:
 
 MenuVisualizer: A library for managing the graphical components of the console environment, offering a smooth user interface for menu interactions.
+
 VocabularyMemorizationHelper: A library for testing and improving vocabulary skills through various modes of translation exercises.
 Together, these libraries provide an engaging and effective vocabulary learning experience, tailored for CLI environments.
 
