@@ -132,7 +132,7 @@ public class VocTest
         return chineseJapanesePairs;
     }
 
-    private static (List<string> chinese, JapaneseSet japaneseSet) FindChineseJapanesePair(string context)
+    public static (List<string> chinese, JapaneseSet japaneseSet) FindChineseJapanesePair(string context)
     {
         if (string.IsNullOrEmpty(context)) return ([], new());
         if (context[0] == ' ' || context[0] == '\t') return ([], new());
@@ -149,7 +149,7 @@ public class VocTest
         return (chineses, set);
     }
 
-    private static JapaneseSet GetJapanese(string japaneseStr)
+    public static JapaneseSet GetJapanese(string japaneseStr)
     {
         bool inParen = false;
         var kanji = string.Empty;
@@ -177,7 +177,7 @@ public class VocTest
         return new(kanji.Trim(), kana.Trim());
     }
 
-    private static List<string> GetChinese(string chineseStr)
+    public static List<string> GetChinese(string chineseStr)
     {
         List<string> chineses = [];
         string chinese = string.Empty;
@@ -186,6 +186,7 @@ public class VocTest
             if (c == '(' || c == '\n')
             {
                 chineses.Add(chinese.Trim());
+                chinese = string.Empty; // Prevent adding it again after the loop
                 break;
             }
             else if (c == '，')
@@ -197,6 +198,11 @@ public class VocTest
             {
                 chinese += c;
             }
+        }
+
+        if (!string.IsNullOrEmpty(chinese))
+        {
+            chineses.Add(chinese.Trim());
         }
 
         return chineses;
